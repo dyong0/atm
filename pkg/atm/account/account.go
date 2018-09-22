@@ -1,6 +1,6 @@
 package account
 
-import "github.com/dyong0/atm/pkg/currency"
+import "github.com/dyong0/atm/pkg/atm/currency"
 
 type Account struct {
 	balance currency.Amount
@@ -24,8 +24,10 @@ func (a *Account) Deposit(amount currency.Amount) error {
 func (a *Account) Withdraw(amount currency.Amount) (currency.Amount, error) {
 	newAmount, err := a.balance.Subtract(amount)
 	if err != nil {
-		return newAmount, err
+		return amount, err
 	}
+
+	a.balance = newAmount
 
 	return amount, nil
 }

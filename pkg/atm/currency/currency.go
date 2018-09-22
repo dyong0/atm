@@ -30,32 +30,33 @@ func (a Amount) Total() uint32 {
 	return total
 }
 
-func (a Amount) Add(depositAmount Amount) (Amount, error) {
-	if a.kind != depositAmount.kind {
+func (a Amount) Add(amount Amount) (Amount, error) {
+	if a.kind != amount.kind {
 		return a, ErrDifferentCurrency
 	}
 
-	for k, v := range depositAmount.currencies {
-		a.currencies[k] = a.currencies[k] + (depositAmount.currencies[k] * v)
+	newAmount, err := New(a.kind, a.Total()+amount.Total())
+	if err != nil {
+		return a, ErrInvalidAmount
 	}
 
-	return a, nil
+	return newAmount, nil
 }
 
-func (a Amount) Subtract(depositAmount Amount) (Amount, error) {
-	if a.kind != depositAmount.kind {
+func (a Amount) Subtract(amount Amount) (Amount, error) {
+	if a.kind != amount.kind {
 		return a, ErrDifferentCurrency
 	}
 
-	if a.Total() < depositAmount.Total() {
+	if a.Total() < amount.Total() {
 		return a, ErrMinusAmount
 	}
 
-	for k, v := range depositAmount.currencies {
-		a.currencies[k] = a.currencies[k] - (depositAmount.currencies[k] * v)
+	newAmount, err := New(a.kind, a.Total()-amount.Total())
+	if err != nil {
+		return a, ErrInvalidAmount
 	}
-
-	return a, nil
+	return newAmount, nil
 }
 
 func currenciesByKind(kind CurrencyKind) ([]uint32, error) {
