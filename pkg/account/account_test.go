@@ -7,7 +7,7 @@ import (
 )
 
 func TestAccount(t *testing.T) {
-	acc := New(currency.CurrencyYen)
+	acc := NewAccount(currency.CurrencyYen)
 
 	amount, err := currency.Yen(1110)
 
