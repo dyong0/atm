@@ -36,7 +36,7 @@ func (a Amount) Subtract(amount Amount) (Amount, error) {
 	}
 
 	if a.Total() < amount.Total() {
-		return a, ErrMinusAmount
+		return a, ErrNegativeAmount
 	}
 
 	newAmount, err := NewAmount(a.kind, a.Total()-amount.Total())

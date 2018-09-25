@@ -10,5 +10,5 @@ var (
 	ErrInvalidAmount     = errors.New("Invalid amount of currencies")
 	ErrUnknownCurrency   = errors.New("Unknown currency")
 	ErrDifferentCurrency = errors.New("Different currency cannot be added or subtracted")
-	ErrMinusAmount       = errors.New("Minus amount")
+	ErrNegativeAmount    = errors.New("Minus amount")
 )
