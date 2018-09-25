@@ -8,7 +8,7 @@ import (
 type CurrencyKind int
 
 var (
-	CurrencyYen          = CurrencyKind(6)
+	CurrencyKindYen      = CurrencyKind(6)
 	ErrInvalidAmount     = errors.New("Invalid amount of currencies")
 	ErrUnknownCurrency   = errors.New("Unknown currency")
 	ErrDifferentCurrency = errors.New("Different currency cannot be added or subtracted")
@@ -61,7 +61,7 @@ func (a Amount) Subtract(amount Amount) (Amount, error) {
 
 func currenciesByKind(kind CurrencyKind) ([]uint32, error) {
 	switch kind {
-	case CurrencyYen:
+	case CurrencyKindYen:
 		return YenCurrencies, nil
 	default:
 		return nil, ErrUnknownCurrency
@@ -70,7 +70,7 @@ func currenciesByKind(kind CurrencyKind) ([]uint32, error) {
 
 func New(kind CurrencyKind, total uint32) (Amount, error) {
 	a := Amount{
-		kind:       CurrencyYen,
+		kind:       CurrencyKindYen,
 		currencies: make(map[uint32]uint32),
 	}
 
@@ -96,5 +96,5 @@ func New(kind CurrencyKind, total uint32) (Amount, error) {
 }
 
 func Yen(total uint32) (Amount, error) {
-	return New(CurrencyYen, total)
+	return New(CurrencyKindYen, total)
 }
