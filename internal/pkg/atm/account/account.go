@@ -1,6 +1,6 @@
 package account
 
-import "github.com/dyong0/atm/pkg/atm/currency"
+import "github.com/dyong0/atm/internal/pkg/atm/currency"
 
 type Account struct {
 	balance currency.Amount
@@ -37,7 +37,7 @@ func (a *Account) Total() uint32 {
 }
 
 func NewAccount(currenyKind currency.CurrencyKind) *Account {
-	amount, _ := currency.New(currenyKind, 0)
+	amount, _ := currency.NewAmount(currenyKind, 0)
 
 	return &Account{
 		balance: amount,

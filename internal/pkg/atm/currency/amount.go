@@ -1,19 +1,6 @@
 package currency
 
-import (
-	"errors"
-	"sort"
-)
-
-type CurrencyKind int
-
-var (
-	CurrencyKindYen      = CurrencyKind(6)
-	ErrInvalidAmount     = errors.New("Invalid amount of currencies")
-	ErrUnknownCurrency   = errors.New("Unknown currency")
-	ErrDifferentCurrency = errors.New("Different currency cannot be added or subtracted")
-	ErrMinusAmount       = errors.New("Minus amount")
-)
+import "sort"
 
 type Amount struct {
 	kind       CurrencyKind
@@ -35,7 +22,7 @@ func (a Amount) Add(amount Amount) (Amount, error) {
 		return a, ErrDifferentCurrency
 	}
 
-	newAmount, err := New(a.kind, a.Total()+amount.Total())
+	newAmount, err := NewAmount(a.kind, a.Total()+amount.Total())
 	if err != nil {
 		return a, ErrInvalidAmount
 	}
@@ -52,23 +39,14 @@ func (a Amount) Subtract(amount Amount) (Amount, error) {
 		return a, ErrMinusAmount
 	}
 
-	newAmount, err := New(a.kind, a.Total()-amount.Total())
+	newAmount, err := NewAmount(a.kind, a.Total()-amount.Total())
 	if err != nil {
 		return a, ErrInvalidAmount
 	}
 	return newAmount, nil
 }
 
-func currenciesByKind(kind CurrencyKind) ([]uint32, error) {
-	switch kind {
-	case CurrencyKindYen:
-		return YenCurrencies, nil
-	default:
-		return nil, ErrUnknownCurrency
-	}
-}
-
-func New(kind CurrencyKind, total uint32) (Amount, error) {
+func NewAmount(kind CurrencyKind, total uint32) (Amount, error) {
 	a := Amount{
 		kind:       CurrencyKindYen,
 		currencies: make(map[uint32]uint32),
@@ -95,6 +73,11 @@ func New(kind CurrencyKind, total uint32) (Amount, error) {
 	return a, nil
 }
 
-func Yen(total uint32) (Amount, error) {
-	return New(CurrencyKindYen, total)
+func currenciesByKind(kind CurrencyKind) ([]uint32, error) {
+	switch kind {
+	case CurrencyKindYen:
+		return YenCurrencies, nil
+	default:
+		return nil, ErrUnknownCurrency
+	}
 }

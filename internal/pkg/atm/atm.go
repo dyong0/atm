@@ -1,9 +1,9 @@
 package atm
 
 import (
-	"github.com/dyong0/atm/pkg/atm/account"
-	"github.com/dyong0/atm/pkg/atm/account/medium"
-	"github.com/dyong0/atm/pkg/atm/currency"
+	"github.com/dyong0/atm/internal/pkg/atm/account"
+	"github.com/dyong0/atm/internal/pkg/atm/account/medium"
+	"github.com/dyong0/atm/internal/pkg/atm/currency"
 )
 
 type ATM struct {

@@ -3,9 +3,9 @@ package atm
 import (
 	"testing"
 
-	"github.com/dyong0/atm/pkg/atm/account"
-	"github.com/dyong0/atm/pkg/atm/account/medium"
-	"github.com/dyong0/atm/pkg/atm/currency"
+	"github.com/dyong0/atm/internal/pkg/atm/account"
+	"github.com/dyong0/atm/internal/pkg/atm/account/medium"
+	"github.com/dyong0/atm/internal/pkg/atm/currency"
 )
 
 func TestATM(t *testing.T) {
@@ -13,7 +13,7 @@ func TestATM(t *testing.T) {
 
 	atm.accountRepo = &mockAccRepo{
 		AccountFunc: func(id string) (*account.Account, error) {
-			return account.NewAccount(currency.CurrencyYen), nil
+			return account.NewAccount(currency.CurrencyKindYen), nil
 		},
 		VerifyAccountFunc: func(account *account.Account, pw string) error {
 			return nil
