@@ -14,7 +14,7 @@ import (
 var (
 	errUnknownAccountMedium = errors.New("unknown account medium")
 	errUnknownMenu          = errors.New("unknown menu")
-	errATMInitiationFailure = errors.New("Failed to initiate ATM")
+	errATMInitiationFailure = errors.New("failed to initiate ATM")
 	errNotSupportedMedium   = errors.New("not supported medium")
 )
 

@@ -5,8 +5,8 @@ import (
 )
 
 var (
-	ErrAccountNotFound    = errors.New("Account not found")
-	ErrIDPasswordMismatch = errors.New("ID and password don't match")
+	ErrAccountNotFound    = errors.New("account not found")
+	ErrIDPasswordMismatch = errors.New("id and password don't match")
 )
 
 type Repository interface {

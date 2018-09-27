@@ -7,8 +7,8 @@ import (
 type CurrencyKind int
 
 var (
-	ErrInvalidAmount     = errors.New("Invalid amount of currencies")
-	ErrUnknownCurrency   = errors.New("Unknown currency")
-	ErrDifferentCurrency = errors.New("Different currency cannot be added or subtracted")
-	ErrNegativeAmount    = errors.New("Minus amount")
+	ErrInvalidAmount     = errors.New("invalid amount of currencies")
+	ErrUnknownCurrency   = errors.New("unknown currency")
+	ErrDifferentCurrency = errors.New("unable to add or subtract using different currencies")
+	ErrNegativeAmount    = errors.New("minus amount")
 )
