@@ -56,9 +56,6 @@ type dialogATM struct {
 	accounts accounts
 }
 
-func (da *dialogATM) createAccount(currencyKind currency.CurrencyKind, holderName string, password string) error {
-	return nil
-}
 func (da *dialogATM) readAccount() error {
 	choice := da.dialog.MultiChoice([]string{
 		"Card",
