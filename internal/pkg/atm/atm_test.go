@@ -9,18 +9,14 @@ import (
 )
 
 func TestATM(t *testing.T) {
-	atm, _ := NewATM()
-
-	atm.accountRepo = &mockAccRepo{
+	mockRepo := &mockAccRepo{
 		AccountFunc: func(id string) (*account.Account, error) {
 			return account.NewAccount(currency.CurrencyKindYen), nil
 		},
-		VerifyAccountFunc: func(account *account.Account, pw string) error {
-			return nil
-		},
 	}
+	atm, _ := NewATM(mockRepo)
 
-	atm.ReadAccount(card{id: "awesome", pw: "secret"})
+	atm.ReadAccount(mockAccMedium{})
 
 	depositAmount, _ := currency.Yen(6000)
 	atm.Deposit(depositAmount)
@@ -47,26 +43,21 @@ func TestATM(t *testing.T) {
 }
 
 type mockAccRepo struct {
-	AccountFunc       func(id string) (*account.Account, error)
-	VerifyAccountFunc func(account *account.Account, pw string) error
+	account.Repository
+	AccountFunc func(id string) (*account.Account, error)
 }
 
 func (r *mockAccRepo) Account(id string) (*account.Account, error) {
 	return r.AccountFunc(id)
 }
-func (r *mockAccRepo) VerifyAccount(account *account.Account, pw string) error {
-	return r.VerifyAccountFunc(account, pw)
-}
 
-type card struct {
+type mockAccMedium struct {
 	medium.Medium
-	id string
-	pw string
 }
 
-func (c card) AccountID() string {
-	return c.id
+func (m mockAccMedium) AccountID() string {
+	return ""
 }
-func (c card) Password() string {
-	return c.pw
+func (m mockAccMedium) Password() string {
+	return ""
 }

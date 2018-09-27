@@ -16,8 +16,7 @@ func (a *ATM) ReadAccount(accMedium medium.Medium) error {
 	if err != nil {
 		return err
 	}
-	err = a.accountRepo.VerifyAccount(acc, accMedium.Password())
-	if err != nil {
+	if err = acc.Authenticate(accMedium.Password()); err != nil {
 		return err
 	}
 
@@ -38,16 +37,15 @@ func (a *ATM) Balance() uint32 {
 	return a.currentAccount.Balance()
 }
 
+func (a *ATM) CurrencyKind() currency.CurrencyKind {
+	return a.currentAccount.CurrencyKind()
+}
+
 func (a *ATM) Close() error {
 	a.currentAccount = nil
 	return nil
 }
 
-func NewATM() (*ATM, error) {
-	repo, err := account.NewRepository()
-	if err != nil {
-		return nil, err
-	}
-
-	return &ATM{accountRepo: repo}, nil
+func NewATM(accRepo account.Repository) (*ATM, error) {
+	return &ATM{accountRepo: accRepo}, nil
 }

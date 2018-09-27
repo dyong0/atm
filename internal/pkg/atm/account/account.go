@@ -1,9 +1,34 @@
 package account
 
-import "github.com/dyong0/atm/internal/pkg/atm/currency"
+import (
+	"errors"
+
+	"github.com/dyong0/atm/internal/pkg/atm/currency"
+)
+
+var (
+	ErrInvalidAuthentication = errors.New("invalid authentication")
+)
 
 type Account struct {
 	balance currency.Amount
+	id      string
+	pw      string
+}
+
+func (a Account) ID() string {
+	return a.id
+}
+func (a Account) Password() string {
+	return a.pw
+}
+
+func (a Account) Authenticate(password string) error {
+	if a.pw != password {
+		return ErrInvalidAuthentication
+	}
+
+	return nil
 }
 
 func (a Account) Balance() uint32 {
@@ -34,6 +59,10 @@ func (a *Account) Withdraw(amount currency.Amount) (currency.Amount, error) {
 
 func (a *Account) Total() uint32 {
 	return a.balance.Total()
+}
+
+func (a *Account) CurrencyKind() currency.CurrencyKind {
+	return a.balance.CurrencyKind()
 }
 
 func NewAccount(currenyKind currency.CurrencyKind) *Account {
