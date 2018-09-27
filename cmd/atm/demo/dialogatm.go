@@ -15,6 +15,7 @@ var (
 	errUnknownAccountMedium = errors.New("unknown account medium")
 	errUnknownMenu          = errors.New("unknown menu")
 	errATMInitiationFailure = errors.New("Failed to initiate ATM")
+	errNotSupportedMedium   = errors.New("not supported medium")
 )
 
 type accounts []struct {
@@ -83,7 +84,7 @@ func (da *dialogATM) readCard() error {
 	return da.atm.ReadAccount(medium.NewCard(cardNo, password))
 }
 func (da *dialogATM) readAccountBank() error {
-	return nil
+	return errNotSupportedMedium
 }
 
 func (da *dialogATM) processMenu() (bool, error) {
