@@ -48,6 +48,8 @@ func handleStart(ctx *ishell.Context) {
 		processNext, err := atm.processMenu()
 		if err != nil {
 			ctx.Println(err.Error())
+			ctx.Println("Enter to exit")
+			ctx.ReadLine()
 		}
 		if !processNext {
 			break

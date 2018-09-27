@@ -16,6 +16,7 @@ var (
 	errUnknownMenu          = errors.New("unknown menu")
 	errATMInitiationFailure = errors.New("failed to initiate ATM")
 	errNotSupportedMethod   = errors.New("not supported method")
+	errNotSupportedAction   = errors.New("not supported action")
 )
 
 type accounts []struct {
@@ -139,7 +140,7 @@ func (da *dialogATM) deposit() error {
 }
 
 func (da *dialogATM) withdraw() error {
-	return nil
+	return errNotSupportedAction
 }
 
 func (da *dialogATM) printAccounts() {
