@@ -2,7 +2,7 @@ package atm
 
 import (
 	"github.com/dyong0/atm/internal/pkg/atm/account"
-	"github.com/dyong0/atm/internal/pkg/atm/account/medium"
+	"github.com/dyong0/atm/internal/pkg/atm/account/method"
 	"github.com/dyong0/atm/internal/pkg/atm/currency"
 )
 
@@ -11,12 +11,12 @@ type ATM struct {
 	currentAccount *account.Account
 }
 
-func (a *ATM) ReadAccount(accMedium medium.Medium) error {
-	acc, err := a.accountRepo.Account(accMedium.AccountID())
+func (a *ATM) ReadAccount(accMethod method.Method) error {
+	acc, err := a.accountRepo.Account(accMethod.AccountID())
 	if err != nil {
 		return err
 	}
-	if err = acc.Authenticate(accMedium.Password()); err != nil {
+	if err = acc.Authenticate(accMethod.Password()); err != nil {
 		return err
 	}
 

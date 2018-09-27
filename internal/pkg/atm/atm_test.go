@@ -4,7 +4,7 @@ import (
 	"testing"
 
 	"github.com/dyong0/atm/internal/pkg/atm/account"
-	"github.com/dyong0/atm/internal/pkg/atm/account/medium"
+	"github.com/dyong0/atm/internal/pkg/atm/account/method"
 	"github.com/dyong0/atm/internal/pkg/atm/currency"
 )
 
@@ -16,7 +16,7 @@ func TestATM(t *testing.T) {
 	}
 	atm, _ := NewATM(mockRepo)
 
-	atm.ReadAccount(mockAccMedium{})
+	atm.ReadAccount(mockAccMethod{})
 
 	depositAmount, _ := currency.Yen(6000)
 	atm.Deposit(depositAmount)
@@ -51,13 +51,13 @@ func (r *mockAccRepo) Account(id string) (*account.Account, error) {
 	return r.AccountFunc(id)
 }
 
-type mockAccMedium struct {
-	medium.Medium
+type mockAccMethod struct {
+	method.Method
 }
 
-func (m mockAccMedium) AccountID() string {
+func (m mockAccMethod) AccountID() string {
 	return ""
 }
-func (m mockAccMedium) Password() string {
+func (m mockAccMethod) Password() string {
 	return ""
 }

@@ -7,15 +7,15 @@ import (
 	"github.com/abiosoft/ishell"
 	atmPkg "github.com/dyong0/atm/internal/pkg/atm"
 	"github.com/dyong0/atm/internal/pkg/atm/account"
-	"github.com/dyong0/atm/internal/pkg/atm/account/medium"
+	"github.com/dyong0/atm/internal/pkg/atm/account/method"
 	"github.com/dyong0/atm/internal/pkg/atm/currency"
 )
 
 var (
-	errUnknownAccountMedium = errors.New("unknown account medium")
+	errUnknownAccountMethod = errors.New("unknown account method")
 	errUnknownMenu          = errors.New("unknown menu")
 	errATMInitiationFailure = errors.New("failed to initiate ATM")
-	errNotSupportedMedium   = errors.New("not supported medium")
+	errNotSupportedMethod   = errors.New("not supported method")
 )
 
 type accounts []struct {
@@ -71,7 +71,7 @@ func (da *dialogATM) readAccount() error {
 	case 1:
 		return da.readAccountBank()
 	default:
-		return errUnknownAccountMedium
+		return errUnknownAccountMethod
 	}
 }
 func (da *dialogATM) readCard() error {
@@ -81,10 +81,10 @@ func (da *dialogATM) readCard() error {
 	da.dialog.Println("Password: ")
 	password := da.dialog.ReadPassword()
 
-	return da.atm.ReadAccount(medium.NewCard(cardNo, password))
+	return da.atm.ReadAccount(method.NewCard(cardNo, password))
 }
 func (da *dialogATM) readAccountBank() error {
-	return errNotSupportedMedium
+	return errNotSupportedMethod
 }
 
 func (da *dialogATM) processMenu() (bool, error) {

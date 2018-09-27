@@ -1,7 +1,7 @@
-package medium
+package method
 
 type Card struct {
-	Medium
+	Method
 	cardNo    string
 	accountID string
 	password  string

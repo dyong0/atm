@@ -1,6 +1,6 @@
-package medium
+package method
 
-type Medium interface {
+type Method interface {
 	AccountID() string
 	Password() string
 }

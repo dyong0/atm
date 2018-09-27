@@ -1,7 +1,7 @@
-package medium
+package method
 
 type AccountBook struct {
-	Medium
+	Method
 	accountID string
 	password  string
 }
