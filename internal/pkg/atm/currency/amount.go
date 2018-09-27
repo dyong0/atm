@@ -46,6 +46,10 @@ func (a Amount) Subtract(amount Amount) (Amount, error) {
 	return newAmount, nil
 }
 
+func (a Amount) CurrencyKind() CurrencyKind {
+	return a.kind
+}
+
 func NewAmount(kind CurrencyKind, total uint32) (Amount, error) {
 	a := Amount{
 		kind:       CurrencyKindYen,
@@ -71,6 +75,15 @@ func NewAmount(kind CurrencyKind, total uint32) (Amount, error) {
 	}
 
 	return a, nil
+}
+
+func CurrencyKindName(kind CurrencyKind) (string, error) {
+	switch kind {
+	case CurrencyKindYen:
+		return CurrencyKindYenName, nil
+	default:
+		return "", ErrUnknownCurrency
+	}
 }
 
 func currenciesByKind(kind CurrencyKind) ([]uint32, error) {
