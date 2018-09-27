@@ -105,12 +105,14 @@ func (da *dialogATM) processMenu() (bool, error) {
 		return false, errUnknownMenu
 	}
 }
+
 func (da *dialogATM) balance() {
 	curKindName, _ := currency.CurrencyKindName(da.atm.CurrencyKind())
 	da.dialog.Printf("Balance: %d %s\n", da.atm.Balance(), curKindName)
 	da.dialog.Println("Enter to exit")
 	da.dialog.ReadLine()
 }
+
 func (da *dialogATM) deposit() error {
 	v, err := strconv.Atoi(da.dialog.ReadLine())
 	if err != nil {
@@ -135,6 +137,7 @@ func (da *dialogATM) deposit() error {
 
 	return nil
 }
+
 func (da *dialogATM) withdraw() error {
 	return nil
 }

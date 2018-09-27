@@ -18,6 +18,7 @@ func NewCard(cardNo, password string) Card {
 func (c Card) AccountID() string {
 	return c.accountID
 }
+
 func (c Card) Password() string {
 	return c.password
 }

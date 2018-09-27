@@ -58,6 +58,7 @@ type mockAccMethod struct {
 func (m mockAccMethod) AccountID() string {
 	return ""
 }
+
 func (m mockAccMethod) Password() string {
 	return ""
 }
