@@ -5,13 +5,18 @@ import (
 	"net/http/httptest"
 	"testing"
 
+	"github.com/dyong0/atm/pkg/atm/account"
+
 	"github.com/dyong0/atm/internal/pkg/test"
 	"github.com/gin-gonic/gin"
 )
 
 func TestAuthorize(t *testing.T) {
 	router := gin.New()
-	ConfigureAuthRouter(router)
+	deps := AuthRouterDependencies()
+	deps = deps.WithAccountRepository(account.NewMemRepository())
+	deps = deps.WithTokenRepository(token.NewMemRepository())
+	ConfigureAuthRouter(router, deps)
 	w := httptest.NewRecorder()
 
 	req, _ := http.NewRequest("POST", "/authorize", nil)

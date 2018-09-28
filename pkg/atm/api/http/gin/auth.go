@@ -11,8 +11,27 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func ConfigureAuthRouter(r gin.IRouter, accRepo account.Repository, tokenRepo token.Repository) {
-	r.POST("/authorize", authorize(accRepo, tokenRepo))
+type authRouterDependencies struct {
+	accRepo   account.Repository
+	tokenRepo token.Repository
+}
+
+func AuthRouterDependencies() authRouterDependencies {
+	return authRouterDependencies{}
+}
+
+func (deps authRouterDependencies) WithAccountRepository(r account.Repository) authRouterDependencies {
+	deps.accRepo = r
+	return deps
+}
+
+func (deps authRouterDependencies) WithTokenRepository(r token.Repository) authRouterDependencies {
+	deps.tokenRepo = r
+	return deps
+}
+
+func ConfigureAuthRouter(r gin.IRouter, deps authRouterDependencies) {
+	r.POST("/authorize", authorize(deps.accRepo, deps.tokenRepo))
 }
 
 func authorize(accRepo account.Repository, tokenRepo token.Repository) gin.HandlerFunc {

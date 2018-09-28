@@ -27,3 +27,13 @@ func (r *memRepository) Create(acc Account, holderName string, password string) 
 
 	return nil
 }
+
+func (r *memRepository) Update(acc Account) error {
+	if _, ok := r.accounts[acc.ID()]; !ok {
+		return ErrAccountNotFound
+	}
+
+	r.accounts[acc.ID()] = &acc
+
+	return nil
+}
