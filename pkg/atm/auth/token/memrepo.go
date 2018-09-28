@@ -37,7 +37,7 @@ func (r *memRepository) Generate() (Token, error) {
 	t := Token{
 		ID:            newId,
 		Authorization: make(map[string]interface{}),
-		ExpiresAt:     time.Now(),
+		ExpiresAt:     time.Now().Add(time.Minute * 5),
 	}
 
 	return t, nil

@@ -3,6 +3,7 @@ package gin
 import (
 	"errors"
 	"net/http"
+	"time"
 
 	"github.com/dyong0/atm/pkg/atm/account"
 
@@ -77,7 +78,7 @@ func authorize(accRepo account.Repository, tokenRepo token.Repository) gin.Handl
 
 		c.JSON(http.StatusOK, response{
 			AccessToken: newToken.ID,
-			ExpiresAt:   newToken.ExpiresAt.String(),
+			ExpiresAt:   newToken.ExpiresAt.Format(time.UnixDate),
 		})
 	}
 }
