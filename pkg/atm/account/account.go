@@ -3,7 +3,7 @@ package account
 import (
 	"errors"
 
-	"github.com/dyong0/atm/internal/pkg/atm/currency"
+	"github.com/dyong0/atm/pkg/atm/currency"
 )
 
 var (

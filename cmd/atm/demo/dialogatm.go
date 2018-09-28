@@ -5,10 +5,10 @@ import (
 	"strconv"
 
 	"github.com/abiosoft/ishell"
-	atmPkg "github.com/dyong0/atm/internal/pkg/atm"
-	"github.com/dyong0/atm/internal/pkg/atm/account"
-	"github.com/dyong0/atm/internal/pkg/atm/account/method"
-	"github.com/dyong0/atm/internal/pkg/atm/currency"
+	atmPkg "github.com/dyong0/atm/pkg/atm"
+	"github.com/dyong0/atm/pkg/atm/account"
+	"github.com/dyong0/atm/pkg/atm/account/method"
+	"github.com/dyong0/atm/pkg/atm/currency"
 )
 
 var (
