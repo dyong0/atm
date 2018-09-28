@@ -68,9 +68,7 @@ func authorize(accRepo account.Repository, tokenRepo token.Repository) gin.Handl
 			c.JSON(http.StatusInternalServerError, ares.Error().Withmessage("failed to issue a token"))
 			return
 		}
-		newToken.Authorization = map[string]interface{}{
-			"account": acc,
-		}
+		newToken.Authorization["account"] = acc
 		err = tokenRepo.Save(newToken)
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, ares.Error().Withmessage("failed to issue a token"))

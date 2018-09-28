@@ -2,9 +2,11 @@ package token
 
 import (
 	"time"
+
+	"github.com/dyong0/atm/pkg/atm/auth/token/generator"
 )
 
-func NewMemRepository(gen Generator) Repository {
+func NewMemRepository(gen generator.Generator) Repository {
 	return &memRepository{
 		tokens:    make(map[string]Token),
 		generator: gen,
@@ -14,7 +16,7 @@ func NewMemRepository(gen Generator) Repository {
 type memRepository struct {
 	Repository
 	tokens    map[string]Token
-	generator Generator
+	generator generator.Generator
 }
 
 func (r *memRepository) Token(tokenId string) (Token, error) {
