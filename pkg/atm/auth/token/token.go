@@ -1,10 +1,11 @@
 package token
 
 import (
-	"fmt"
+	"time"
 )
 
 type Token struct {
-	fmt.Stringer
-	Authorization interface{}
+	ID            string
+	Authorization map[string]interface{}
+	ExpiresAt     time.Time
 }

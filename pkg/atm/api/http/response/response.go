@@ -1,6 +1,16 @@
-package http
+package response
 
-func ErrorResponse() errResponse {
+import "net/http"
+
+func BadRequest() (int, errResponse) {
+	return http.StatusBadRequest, Error().Withmessage("bad request")
+}
+
+func InternalServerError() (int, errResponse) {
+	return http.StatusInternalServerError, Error().Withmessage("internal server error")
+}
+
+func Error() errResponse {
 	return errResponse{Code: 500, Message: ""}
 }
 
