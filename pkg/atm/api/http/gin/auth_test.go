@@ -19,12 +19,10 @@ func TestAuthorize(t *testing.T) {
 	router := gin.New()
 
 	accRepo := account.NewMemRepository()
-	genMock := genMock{}
-	deps := AuthRouterDependencies()
-	deps = deps.WithAccountRepository(accRepo)
-	deps = deps.WithTokenRepository(token.NewMemRepository(genMock))
 	accRepo.Create(*account.NewAccount(currency.CurrencyKindYen), "id", "pw")
-	ConfigureAuthRouter(router, deps)
+	genMock := genMock{}
+	router.POST("/authorize", authorize(accRepo, token.NewMemRepository(genMock)))
+
 	w := httptest.NewRecorder()
 	payload := `
     {
